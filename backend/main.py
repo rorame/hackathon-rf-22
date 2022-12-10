@@ -19,10 +19,19 @@ class Incident:
         self.cataclysmic_type = cataclysmic_type
 
 
+def get_coodrinates_by_terrain(terrain):
+    try:
+        request = requests.get('https://nominatim.openstreetmap.org/search?q=' + terrain + '&format=json')
+        if request.status_code == 200:
+            return [request.json()[0]["lat"], request.json()[0]["lon"]]
+    except:
+        return None
+
+
 def get_location_from_text(text):
     result = addr_extractor.find(text)
     if result is not None:
-        return str(result).split("value='")[1].split("'")[0]
+        return get_coodrinates_by_terrain(str(result).split("value='")[1].split("'")[0])
     return None
 
 
@@ -46,8 +55,9 @@ def get_incidents_from_rio_news():
         location = get_location_from_text(title)  # Пока заглушка TODO нужно реализовать забор координат с геосервиса
         cataclysmic_type = "Пожар"  # Пока заглушка TODO нужно реализовать нейросетку которая будет определять тип катаклизма
 
-        incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
-                                  cataclysmic_type=cataclysmic_type))
+        if location is not None:
+            incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
+                                      cataclysmic_type=cataclysmic_type))
 
 
 def get_incidents_from_kommersant():
@@ -70,8 +80,9 @@ def get_incidents_from_kommersant():
         location = get_location_from_text(title)  # Пока заглушка TODO нужно реализовать забор координат с геосервиса
         cataclysmic_type = "Пожар"  # Пока заглушка TODO нужно реализовать нейросетку которая будет определять тип катаклизма
 
-        incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
-                                  cataclysmic_type=cataclysmic_type))
+        if location is not None:
+            incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
+                                      cataclysmic_type=cataclysmic_type))
 
 
 def get_incidents_from_kp():
@@ -94,8 +105,9 @@ def get_incidents_from_kp():
         location = get_location_from_text(title)  # Пока заглушка TODO нужно реализовать забор координат с геосервиса
         cataclysmic_type = "Пожар"  # Пока заглушка TODO нужно реализовать нейросетку которая будет определять тип катаклизма
 
-        incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
-                                  cataclysmic_type=cataclysmic_type))
+        if location is not None:
+            incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
+                                      cataclysmic_type=cataclysmic_type))
 
 
 def get_incidents_from_lenta():
@@ -117,14 +129,14 @@ def get_incidents_from_lenta():
         location = get_location_from_text(title)  # Пока заглушка TODO нужно реализовать забор координат с геосервиса
         cataclysmic_type = "Пожар"  # Пока заглушка TODO нужно реализовать нейросетку которая будет определять тип катаклизма
 
-        incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
-                                  cataclysmic_type=cataclysmic_type))
+        if location is not None:
+            incidents.append(Incident(title=title, description=description, location=location, src=articles_hrefs[x],
+                                      cataclysmic_type=cataclysmic_type))
 
 
 incidents = []
 
-get_incidents_from_rio_news()
+get_incidents_from_kommersant()
 get_incidents_from_kommersant()
 get_incidents_from_kp()
 get_incidents_from_lenta()
-
