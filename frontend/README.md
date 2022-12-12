@@ -172,7 +172,7 @@ Here are some [VSCode](https://code.visualstudio.com) snippets I'm using whilst 
         ".write": "$uid === auth.uid"
       }
     },
-    "schedule": {
+    "Map": {
       "$uid": {
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid",
@@ -181,19 +181,12 @@ Here are some [VSCode](https://code.visualstudio.com) snippets I'm using whilst 
         ]
       }
     },
-    "meals": {
-      "$uid": {
-        ".read": "$uid === auth.uid",
-        ".write": "$uid === auth.uid"
-      }
-    },
-    "workouts": {
+    "news": {
       "$uid": {
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"
       }
     }
-  }
 }
 ```
 

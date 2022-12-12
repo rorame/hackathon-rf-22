@@ -9,11 +9,13 @@ import { AuthModule } from './containers/auth/auth.module';
 
 // containers
 import { AppComponent } from './containers/app/app.component';
+import { AppHeaderComponent } from './components/app-header/app-header.component';
+import { AppNavComponent } from './components/app-nav/app-nav.component';
 
 // components
 
 // routes
-export const ROUTES: Routes = [];
+export const ROUTES: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'map' }];
 
 @NgModule({
   imports: [
@@ -22,7 +24,9 @@ export const ROUTES: Routes = [];
     AuthModule
   ],
   declarations: [
-    AppComponent
+    AppComponent,
+    AppHeaderComponent,
+    AppNavComponent
   ],
   providers: [
     Store
