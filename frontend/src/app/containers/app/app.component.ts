@@ -1,55 +1,40 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { User } from 'firebase';
-
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from 'store';
 import { AuthService } from '../auth/shared/services/auth/auth.service';
-
+import { User } from 'src/interfaces/user.interface';
+import { Observable, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
+  templateUrl: './app.component.html',
   styleUrls: ['app.component.scss'],
-  template: `
-    <div>
-      <app-header
-        [user]="user$ | async"
-        (logout)="onLogout()">
-      </app-header>
-      <app-nav
-        *ngIf="(user$ | async)?.authenticated">
-      </app-nav>
-      <div class="wrapper">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
-  `
 })
 export class AppComponent implements OnInit, OnDestroy {
-
-  user$: Observable<User>;
-  subscription: Subscription;
-
+  user$: Observable<User> | undefined;
+  subscription$: Subscription | undefined;
+  isAuthenticated = false;
   constructor(
     private store: Store,
-    private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
+  ngOnDestroy(): void {
+    this.subscription$?.unsubscribe();
+  }
+  ngOnInit(): void {
+    this.subscription$ = this.authService.auth$.subscribe((el) => {
+      this.isAuthenticated = !!el;
+      if (!this.isAuthenticated) {
+        this.router.navigate(['/auth/login']);
+      }
+    });
 
-  ngOnInit() {
-    this.subscription = this.authService.auth$.subscribe();
     this.user$ = this.store.select<User>('user');
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  async onLogout() {
-    await this.authService.logoutUser();
+  onLogout() {
+    this.authService.logoutUser();
     this.router.navigate(['/auth/login']);
   }
-
 }

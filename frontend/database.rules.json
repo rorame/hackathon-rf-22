@@ -6,7 +6,7 @@
         ".write": "$uid === auth.uid"
       }
     },
-    "map": {
+    "schedule": {
       "$uid": {
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid",
@@ -15,7 +15,13 @@
         ]
       }
     },
-    "news": {
+    "meals": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "workouts": {
       "$uid": {
         ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"

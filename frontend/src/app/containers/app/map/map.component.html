@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div class="row">
+    <app-hello
+      *ngIf="news?.length"
+      class="column"
+      name="{{ name }}"
+      [news]="news"
+      (onClickLocation)="onClickLocation($event)"
+    >
+    </app-hello>
+    <div class="map" #map id="map" style="width: 100%; height: 1325px"></div>
+  </div>
+</div>

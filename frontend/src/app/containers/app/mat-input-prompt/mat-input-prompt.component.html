@@ -1,0 +1,57 @@
+<div class="form-container">
+  <h2 mat-dialog-title>Отредактируйте новость</h2>
+  <mat-dialog-content>
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Категория</mat-label>
+        <mat-select
+          matNativeControl
+          name="cataclysmic_type"
+          formControlName="cataclysmic_type"
+        >
+          <mat-option value="Пожар">Пожар</mat-option>
+          <mat-option value="ДТП">ДТП</mat-option>
+          <mat-option value="Происшествия">Происшествия</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Новость</mat-label>
+        <input
+          matInput
+          placeholder="Назовите происшествие"
+          formControlName="title"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Описание</mat-label>
+        <textarea
+          matInput
+          placeholder="Опишите происшествие"
+          formControlName="description"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="standard">
+        <mat-label>Координаты</mat-label>
+        <input
+          matInput
+          placeholder="xx.xxxx, xx.xxxx"
+          formControlName="location"
+        />
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="dialogRef.close(false)" color="primary">
+      закрыть
+    </button>
+    <button
+      [disabled]="!form.valid"
+      mat-raised-button
+      color="primary"
+      (click)="submit(form.value)"
+    >
+      применить
+    </button>
+  </mat-dialog-actions>
+</div>

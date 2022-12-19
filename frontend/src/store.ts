@@ -1,30 +1,30 @@
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { pluck } from 'rxjs/operators';
 
-import 'rxjs/add/operator/pluck';
-import 'rxjs/add/operator/distinctUntilChanged';
+import { BehaviorSubject, distinctUntilChanged, Observable } from 'rxjs';
+import { User } from './interfaces/user.interface';
 
 export interface State {
-  [key: string]: any
+  user: User | undefined;
+  [key: string]: any;
 }
 
-const state: State = {};
+const state: State = {
+  user: undefined,
+};
 
 export class Store {
-
   private subject = new BehaviorSubject<State>(state);
-  private store = this.subject.asObservable().distinctUntilChanged();
+  private store = this.subject.asObservable().pipe(distinctUntilChanged());
 
   get value() {
     return this.subject.value;
   }
 
   select<T>(name: string): Observable<T> {
-    return this.store.pluck(name);
+    return this.store.pipe(pluck(name));
   }
 
   set(name: string, state: any) {
     this.subject.next({ ...this.value, [name]: state });
   }
-
 }

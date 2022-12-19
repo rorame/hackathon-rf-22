@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://ivanborisof.pythonanywhere.com/api/v1.0/events/",
+    "secure": false,
+    "changeOrigin": true
+
+  }
+}

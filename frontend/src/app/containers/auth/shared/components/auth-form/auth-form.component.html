@@ -3,18 +3,18 @@
     <ng-content select="h1"></ng-content>
 
     <label>
-      <input type="email" placeholder="Email adress" formControlName="email" />
+      <input type="email" placeholder="введите почту" formControlName="email" />
     </label>
     <label>
       <input
         type="password"
-        placeholder="Enter password"
+        placeholder="введите пароль"
         formControlName="password"
       />
     </label>
 
-    <div *ngIf="emailInvalid" class="error">Invalid email format</div>
-    <div *ngIf="passwordInvalid" class="error">Password is required</div>
+    <div *ngIf="emailInvalid" class="error">Невалидный email</div>
+    <div *ngIf="passwordInvalid" class="error">пароль обязательный</div>
     <ng-content select=".error "></ng-content>
     <div class="auth-form__action">
       <ng-content select="button"></ng-content>

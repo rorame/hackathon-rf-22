@@ -1,60 +1,63 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-
-import { Store } from 'store';
-
-// feature modules
 import { AuthModule } from './containers/auth/auth.module';
-
-// containers
 import { AppComponent } from './containers/app/app.component';
-import { AppHeaderComponent } from './components/app-header/app-header.component';
-import { AppNavComponent } from './components/app-nav/app-nav.component';
+import { Store } from 'store';
+import { HeaderComponent } from './components/header/header.component';
+import { NavComponent } from './components/nav/nav.component';
+import { AgVirtualScrollModule } from 'ag-virtual-scroll';
+import { HttpClientModule } from '@angular/common/http';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import {
+  MatToolbarModule,
+  MatButtonModule,
+  MatIconModule,
+  MatSnackBarModule,
+} from '@angular/material';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDialogModule } from '@angular/material';
+import { MatInputPromptComponent } from './containers/app/mat-input-prompt/mat-input-prompt.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NewsModule } from './components/news/news.module';
+import { CoordinatesModule } from './components/coordinates/coordinates.module';
 
-// components
-
-// routes
-export const ROUTES: Routes = [  { path: '', pathMatch: 'full', redirectTo: 'map' }];
+export const ROUTES: Routes = [];
 
 @NgModule({
   imports: [
+    CoordinatesModule,
+    MatButtonModule,
+    NewsModule,
     BrowserModule,
     RouterModule.forRoot(ROUTES),
-    AuthModule
+    AuthModule,
+    AgVirtualScrollModule,
+    HttpClientModule,
+    MatIconModule,
+    MatToolbarModule,
+    ScrollingModule,
+    MatDialogModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
   ],
   declarations: [
     AppComponent,
-    AppHeaderComponent,
-    AppNavComponent
+    HeaderComponent,
+    NavComponent,
+    MatInputPromptComponent,
   ],
-  providers: [
-    Store
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [AppComponent],
+  providers: [Store],
 })
 export class AppModule {}
-
-
-
-// Import the functions you need from the SDKs you need
-
-//! import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-//! const firebaseConfig = {
-//!   apiKey: "AIzaSyApT-9aea2310v1mu9dKtRaGTUnTKMcgSI",
-//!   authDomain: "fitness-app-17e6f.firebaseapp.com",
-//!   databaseURL: "https://!fitness-app-17e6f-default-rtdb.firebaseio.com",
-//!   projectId: "fitness-app-17e6f",
-//!   storageBucket: "fitness-app-17e6f.appspot.com",
-//!   messagingSenderId: "147009321449",
-//!   appId: "1:147009321449:web:0d6d6abc3b3d52b1fc7378"
-//! };
-
-// Initialize Firebase
-//! const app = initializeApp(firebaseConfig);
